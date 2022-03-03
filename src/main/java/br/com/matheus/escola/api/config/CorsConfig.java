@@ -13,10 +13,13 @@ public class CorsConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
+		
+		String[] origins = new String[] {
+			"http://localhost:4200", "http://localhost:5000", "https://angular-escola.herokuapp.com"
+		};
+		
 		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:3000", 
-							"http://localhost:5000",
-						 	"https://escolabackend.herokuapp.com")
+			.allowedOrigins(origins)
 			.allowedMethods("GET", "POST", "PUT", "DELETE");
 	}
 }

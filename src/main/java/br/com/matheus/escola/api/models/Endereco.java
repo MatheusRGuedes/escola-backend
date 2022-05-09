@@ -1,13 +1,18 @@
 package br.com.matheus.escola.api.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import br.com.matheus.escola.api.enums.Uf;
 
 @Entity
 @Table(name = "ENDERECOS")
@@ -31,15 +36,15 @@ public class Endereco {
 	@NotBlank
 	private String cidade;
 	
-	@NotBlank
-	@Size(min = 2, max = 2)
-	private String uf;
+	@NotNull(message = "Uf deve ser válida.")
+	@Enumerated(EnumType.STRING)
+	private Uf uf;
 
 	
 	public Endereco() {}
 	
 	public Endereco(@NotBlank @Size(min = 8, max = 8) String cep, @NotBlank String logradouro,
-			@NotBlank String bairro, @NotBlank String cidade, @NotBlank @Size(min = 2, max = 2) String uf) {
+			@NotBlank String bairro, @NotBlank String cidade, @NotBlank @Size(min = 2, max = 2) Uf uf) {
 		super();
 		this.cep = cep;
 		this.logradouro = logradouro;
@@ -84,10 +89,10 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getUf() {
+	public Uf getUf() {
 		return uf;
 	}
-	public void setUf(String uf) {
+	public void setUf(Uf uf) {
 		this.uf = uf;
 	}
 }
